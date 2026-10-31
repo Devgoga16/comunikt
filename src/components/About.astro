@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import nosotros from "../assets/img/nosotros.jpg";
+import { SITE, STATS, TEAM, TEAM_IS_PLACEHOLDER } from "../data/site";
+import { img } from "../data/images";
+---
+<section class="section about" id="nosotros">
+  <div class="container about__inner">
+    <div class="about__media reveal">
+      <Image src={nosotros} alt="Niño armando bloques de colores junto a una adulta" widths={[480, 720, 1000]} sizes="(max-width: 960px) 88vw, 560px" />
+      <div class="about__since">
+        <strong>{SITE.foundingYear}</strong>
+        <span>acompañando a familias</span>
+      </div>
+    </div>
+    <div class="about__text reveal">
+      <span class="eyebrow">Sobre ComuniK-T</span>
+      <h2>Un lugar donde los niños se sienten en confianza</h2>
+      <p>Somos un centro de terapias para niños en Santiago de Surco. Desde {SITE.foundingYear} acompañamos a las familias con evaluaciones y terapias en distintas especialidades, siempre con cercanía y trabajando en equipo con los papás.</p>
+      <ul class="checks">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Atención por terapeutas licenciadas</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Feedback después de cada sesión</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Recomendaciones para trabajar en casa</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Horarios en turno mañana y tarde</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container stats reveal">
+    {STATS.map((s) => (
+      <div class="stat"><strong class={`c-${s.color}`}>{s.value}</strong><span>{s.label}</span></div>
+    ))}
+  </div>
+
+  <div class="container team">
+    <header class="section__head reveal">
+      <span class="eyebrow">Nuestro equipo</span>
+      <h2>Profesionales que acompañan con cariño</h2>
+      <p>Un equipo de terapeutas licenciadas en cada especialidad.</p>
+    </header>
+    <div class="team__grid">
+      {TEAM.map((m) => (
+        <article class="member reveal">
+          <div class={`member__photo bg-${m.color}-soft`}>
+            {m.photo
+              ? <Image src={img(m.photo)} alt={m.name} width={264} />
+              : <svg class="ico" aria-hidden="true"><use href="#i-user"/></svg>}
+          </div>
+          <h3>{m.name}</h3>
+          <p>{m.role}</p>
+        </article>
+      ))}
+    </div>
+    {TEAM_IS_PLACEHOLDER && <p class="note">* Espacio reservado para fotos y datos reales del equipo de ComuniK-T.</p>}
+  </div>
+</section>

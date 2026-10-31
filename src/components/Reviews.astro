@@ -1,0 +1,21 @@
+---
+import { CONTACT } from "../data/site";
+---
+<section class="section reviews">
+  <div class="container reviews__inner reveal">
+    <div class="reviews__score">
+      <span class="reviews__big">100%</span>
+      <div class="reviews__stars" aria-hidden="true">★★★★★</div>
+      <p>de las familias nos recomiendan en Facebook</p>
+    </div>
+    <div class="reviews__text">
+      <span class="eyebrow">Testimonios</span>
+      <h2>Lo que dicen las familias</h2>
+      <p>Los avances de cada niño son nuestra mayor alegría. Mira los testimonios de las familias que confían en nosotros en nuestras redes.</p>
+      <div class="reviews__ctas">
+        <a href={CONTACT.facebookReviews} class="btn btn--outline" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-fb"/></svg> Opiniones en Facebook</a>
+        <a href={CONTACT.instagram} class="btn btn--outline" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-ig"/></svg> Testimonios en Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>

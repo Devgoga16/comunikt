@@ -1,0 +1,120 @@
+---
+import { SITE, CONTACT, SERVICES, wa, WA_MSG } from "../data/site";
+
+const mapQuery = encodeURIComponent(SITE.address ? `${SITE.address}, ${SITE.district}, ${SITE.city}` : `${SITE.district}, ${SITE.city}, Perú`);
+---
+<section class="section contact" id="contacto">
+  <svg class="wave wave--top" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,50 C240,0 520,90 760,50 C1000,10 1240,70 1440,30 L1440,0 L0,0 Z"/></svg>
+  <div class="container contact__inner">
+    <div class="contact__info reveal">
+      <span class="eyebrow eyebrow--light">Contacto</span>
+      <h2>Agenda la evaluación de tu peque</h2>
+      <p>Completa tus datos y te llevamos directo a WhatsApp con tu mensaje listo para enviar.</p>
+      <ul class="contact__list">
+        <li><span class="bg-green"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg></span><div><small>WhatsApp</small><a href={wa(WA_MSG.general)} target="_blank" rel="noopener" data-track="contacto">{CONTACT.phoneIntl}</a></div></li>
+        <li><span class="bg-orange"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg></span><div><small>Correo</small><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></div></li>
+        <li><span class="bg-pink"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg></span><div><small>Ubicación</small><span>{SITE.address ? `${SITE.address}, ` : ""}{SITE.district}, {SITE.city}</span></div></li>
+        <li><span class="bg-teal"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span><div><small>Horarios</small><span>{SITE.hours}</span></div></li>
+      </ul>
+      <div class="socials">
+        <a href={CONTACT.facebook} target="_blank" rel="noopener" aria-label="Facebook de ComuniK-T"><svg class="ico" aria-hidden="true"><use href="#i-fb"/></svg></a>
+        <a href={CONTACT.instagram} target="_blank" rel="noopener" aria-label="Instagram de ComuniK-T"><svg class="ico" aria-hidden="true"><use href="#i-ig"/></svg></a>
+      </div>
+    </div>
+
+    <form class="form reveal" id="wa-form" novalidate data-wa={CONTACT.waNumber}>
+      <h3>Cuéntanos sobre tu peque</h3>
+      <div class="form__row">
+        <label>Tu nombre
+          <input type="text" name="nombre" required autocomplete="given-name" placeholder="Ej. María">
+        </label>
+        <label>Edad de tu hijo(a)
+          <input type="text" name="edad" required placeholder="Ej. 4 años">
+        </label>
+      </div>
+      <label>Terapia de interés
+        <select name="terapia" required>
+          <option value="">Selecciona una opción</option>
+          {SERVICES.map((s) => <option>{s.name}</option>)}
+          <option>No estoy seguro(a), necesito orientación</option>
+        </select>
+      </label>
+      <fieldset class="form__radios">
+        <legend>Modalidad</legend>
+        <label class="radio"><input type="radio" name="modalidad" value="Presencial" checked><span>Presencial</span></label>
+        <label class="radio"><input type="radio" name="modalidad" value="Online"><span>Online</span></label>
+      </fieldset>
+      <fieldset class="form__radios">
+        <legend>Turno preferido</legend>
+        <label class="radio"><input type="radio" name="turno" value="Mañana" checked><span>Mañana</span></label>
+        <label class="radio"><input type="radio" name="turno" value="Tarde"><span>Tarde</span></label>
+      </fieldset>
+      <label>Mensaje (opcional)
+        <textarea name="mensaje" rows="3" placeholder="Cuéntanos brevemente qué has notado"></textarea>
+      </label>
+      <p class="form__error" id="form-error" role="alert" hidden>Completa tu nombre, la edad y la terapia de interés.</p>
+      <button type="submit" class="btn btn--primary btn--lg btn--block">
+        <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Enviar por WhatsApp
+      </button>
+      <p class="form__privacy"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg> Tus datos no se guardan en esta web: solo se usan para armar tu mensaje de WhatsApp.</p>
+    </form>
+  </div>
+
+  <div class="container map reveal">
+    <!-- El mapa se carga solo al hacer clic: la página carga más rápido y sin cookies de terceros -->
+    <button class="map__facade" type="button" data-src={`https://www.google.com/maps?q=${mapQuery}&z=14&output=embed`}>
+      <span class="map__pin bg-pink"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg></span>
+      <strong>Ver mapa de {SITE.district}</strong>
+      <small>Toca para cargar Google Maps</small>
+    </button>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("wa-form") as HTMLFormElement;
+  const error = document.getElementById("form-error")!;
+  const required = ["nombre", "edad", "terapia"];
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k: string) => String(data.get(k) ?? "").trim();
+
+    let firstInvalid: HTMLElement | null = null;
+    for (const name of required) {
+      const field = form.elements.namedItem(name) as HTMLElement;
+      const empty = !get(name);
+      field.classList.toggle("is-invalid", empty);
+      if (empty && !firstInvalid) firstInvalid = field;
+    }
+    error.hidden = !firstInvalid;
+    if (firstInvalid) { firstInvalid.focus(); return; }
+
+    const lines = [
+      "Hola ComuniK-T, quisiera agendar una evaluación.",
+      `• Mi nombre: ${get("nombre")}`,
+      `• Edad de mi hijo(a): ${get("edad")}`,
+      `• Terapia de interés: ${get("terapia")}`,
+      `• Modalidad: ${get("modalidad")}`,
+      `• Turno preferido: ${get("turno")}`,
+    ];
+    if (get("mensaje")) lines.push(`• Comentario: ${get("mensaje")}`);
+
+    document.dispatchEvent(new CustomEvent("wa:form"));
+    window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
+  });
+  form.querySelectorAll("input, select").forEach((f) =>
+    f.addEventListener("input", () => f.classList.remove("is-invalid"))
+  );
+
+  // Mapa bajo demanda
+  const facade = document.querySelector<HTMLButtonElement>(".map__facade");
+  facade?.addEventListener("click", () => {
+    const iframe = document.createElement("iframe");
+    iframe.src = facade.dataset.src!;
+    iframe.title = "Mapa de ubicación de ComuniK-T";
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "no-referrer-when-downgrade";
+    facade.replaceWith(iframe);
+  }, { once: true });
+</script>

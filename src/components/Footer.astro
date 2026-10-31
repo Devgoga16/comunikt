@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/img/logo.png";
+import { SITE, CONTACT, SERVICES, NAV, wa, WA_MSG } from "../data/site";
+---
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <Image src={logo} alt="ComuniK-T Kids Therapy" width={380} />
+      <p>Centro de terapias para niños en {SITE.district}, {SITE.city}. Evaluaciones y terapias presenciales y online.</p>
+    </div>
+    <div>
+      <h2 class="footer__title">Terapias</h2>
+      <ul>{SERVICES.map((s) => <li><a href={`#terapia-${s.id}`}>{s.name}</a></li>)}</ul>
+    </div>
+    <div>
+      <h2 class="footer__title">Navega</h2>
+      <ul>
+        {NAV.filter((n) => n.href !== "#terapias").map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer__title">Contacto</h2>
+      <ul>
+        <li><a href={wa(WA_MSG.general)} target="_blank" rel="noopener" data-track="footer">WhatsApp: {CONTACT.phoneDisplay}</a></li>
+        <li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+        <li>{SITE.district}, {SITE.city}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <p>© {new Date().getFullYear()} {SITE.legalName}. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<a href={wa(WA_MSG.general)} class="wa-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" data-track="flotante">
+  <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+  <span class="wa-float__label">¿Hablamos?</span>
+</a>

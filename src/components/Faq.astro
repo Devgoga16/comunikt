@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import alegria from "../assets/img/alegria.jpg";
+import { FAQ } from "../data/site";
+---
+<section class="section faq" id="faq">
+  <div class="container faq__inner">
+    <header class="section__head section__head--left reveal">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas</h2>
+      <p>¿Tienes otra pregunta? Escríbenos por WhatsApp y te respondemos.</p>
+      <Image src={alegria} alt="Niña sonriendo" class="faq__img" widths={[400, 600, 800]} sizes="420px" />
+    </header>
+    <div class="faq__list reveal">
+      {FAQ.map((f, i) => (
+        <details open={i === 0}>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

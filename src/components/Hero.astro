@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import hero from "../assets/img/hero.jpg";
+import { SITE, wa, WA_MSG } from "../data/site";
+---
+<section class="hero" id="inicio">
+  <div class="hero__deco" aria-hidden="true">
+    <span class="star s1"></span><span class="star s2"></span><span class="star s3"></span><span class="star s4"></span>
+    <svg class="bubble b1"><use href="#i-bubble"/></svg>
+    <svg class="bubble b2"><use href="#i-bubble"/></svg>
+    <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+  </div>
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <span class="pill">Centro de Terapias para Niños · Surco</span>
+      <h1>Ayudamos a tu peque a <span class="c-pink">comunicarse</span>, <span class="c-orange">aprender</span> y <span class="c-green">crecer feliz</span></h1>
+      <p class="hero__lead">Evaluaciones y terapias de lenguaje, aprendizaje, psicología, ocupacional y física, con terapeutas licenciadas que acompañan a tu familia en cada paso.</p>
+      <div class="hero__ctas">
+        <a href={wa(WA_MSG.evaluacion)} class="btn btn--primary btn--lg" target="_blank" rel="noopener" data-track="hero">
+          <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Agenda una evaluación
+        </a>
+        <a href="#terapias" class="btn btn--ghost btn--lg">Ver terapias</a>
+      </div>
+      <ul class="hero__badges">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg> Presencial en Surco</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-laptop"/></svg> También online</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg> Desde {SITE.foundingYear}</li>
+      </ul>
+    </div>
+    <div class="hero__media">
+      <div class="hero__blob">
+        <Image src={hero} alt="Terapeuta trabajando con un niño durante una sesión" widths={[480, 720, 960, 1200]} sizes="(max-width: 960px) 92vw, 560px" loading="eager" fetchpriority="high" />
+      </div>
+      <div class="hero__float hero__float--a">
+        <span class="hero__float-ico bg-pink"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></span>
+        <div><strong>100% recomendado</strong><small>por familias en Facebook</small></div>
+      </div>
+      <div class="hero__float hero__float--b">
+        <span class="hero__float-ico bg-green"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>
+        <div><strong>Feedback</strong><small>después de cada sesión</small></div>
+      </div>
+    </div>
+  </div>
+  <svg class="wave wave--bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,64 C180,120 360,10 560,48 C760,86 900,120 1100,80 C1260,48 1360,40 1440,56 L1440,120 L0,120 Z"/></svg>
+</section>
+
+<section class="highlights" aria-label="Por qué elegirnos">
+  <div class="container highlights__grid">
+    <article class="hl reveal">
+      <span class="hl__ico bg-teal"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg></span>
+      <h2 class="h3">Evaluación inicial</h2>
+      <p>Conocemos a tu peque y detectamos sus necesidades para proponer el plan adecuado.</p>
+    </article>
+    <article class="hl reveal">
+      <span class="hl__ico bg-orange"><svg class="ico" aria-hidden="true"><use href="#i-laptop"/></svg></span>
+      <h2 class="h3">Presencial u online</h2>
+      <p>Atención en Surco y sesiones online para lenguaje, aprendizaje y psicología.</p>
+    </article>
+    <article class="hl reveal">
+      <span class="hl__ico bg-pink"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg></span>
+      <h2 class="h3">Tareas para casa</h2>
+      <p>Te damos feedback y recomendaciones para seguir avanzando en familia.</p>
+    </article>
+  </div>
+</section>

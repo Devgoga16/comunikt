@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import online from "../assets/img/online.jpg";
+import { STEPS, SERVICES } from "../data/site";
+
+const presencial = SERVICES.map((s) => s.short);
+const enLinea = SERVICES.filter((s) => s.online).map((s) => s.short);
+---
+<section class="section process" id="como-trabajamos">
+  <svg class="wave wave--top" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C240,100 480,0 720,36 C960,72 1200,90 1440,30 L1440,0 L0,0 Z"/></svg>
+  <div class="container">
+    <header class="section__head reveal">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>Empezar es más fácil de lo que crees</h2>
+      <p>Te acompañamos desde el primer mensaje hasta cada avance de tu hijo.</p>
+    </header>
+    <ol class="steps">
+      {STEPS.map((step, i) => (
+        <li class="step reveal">
+          <span class={`step__num bg-${step.color}`}>{i + 1}</span>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="section modes">
+  <div class="container modes__inner">
+    <div class="modes__media reveal">
+      <Image src={online} alt="Mamá e hija en una sesión online desde casa" widths={[480, 720, 1000]} sizes="(max-width: 960px) 92vw, 560px" />
+      <span class="modes__sticker"><svg class="ico" aria-hidden="true"><use href="#i-laptop"/></svg> ¡Ahora también online!</span>
+    </div>
+    <div class="modes__text reveal">
+      <span class="eyebrow">Modalidades</span>
+      <h2>En Surco o desde la comodidad de tu casa</h2>
+      <div class="mode-cards">
+        <div class="mode-card">
+          <span class="mode-card__ico bg-teal"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg></span>
+          <div>
+            <h3>Presencial</h3>
+            <p>En nuestro centro en Santiago de Surco, con espacios pensados para los niños.</p>
+            <ul class="chips">{presencial.map((s) => <li>{s}</li>)}</ul>
+          </div>
+        </div>
+        <div class="mode-card">
+          <span class="mode-card__ico bg-orange"><svg class="ico" aria-hidden="true"><use href="#i-laptop"/></svg></span>
+          <div>
+            <h3>Online</h3>
+            <p>Consultas, evaluaciones y terapias online, con horarios en turno mañana y tarde.</p>
+            <ul class="chips">{enLinea.map((s) => <li>{s}</li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

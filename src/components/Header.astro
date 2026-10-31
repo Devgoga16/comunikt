@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/img/logo.png";
+import { NAV, wa, WA_MSG } from "../data/site";
+---
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="#inicio" class="header__logo" aria-label="ComuniK-T, ir al inicio">
+      <Image src={logo} alt="ComuniK-T Kids Therapy" width={300} loading="eager" />
+    </a>
+    <nav class="nav" id="nav" aria-label="Menú principal">
+      <ul class="nav__list">
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+      <a href={wa(WA_MSG.evaluacion)} class="btn btn--primary nav__cta" target="_blank" rel="noopener" data-track="menu">
+        <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Agenda tu evaluación
+      </a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById("header")!;
+  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 10);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Menú móvil
+  const burger = document.getElementById("burger")!;
+  const nav = document.getElementById("nav")!;
+  const setMenu = (open: boolean) => {
+    nav.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  };
+  burger.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
+  nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+</script>

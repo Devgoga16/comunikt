@@ -1,0 +1,18 @@
+---
+import { CONTACT, wa, WA_MSG } from "../data/site";
+---
+<section class="cta-band">
+  <svg class="wave wave--top" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,60 C200,0 420,100 720,50 C1000,4 1240,80 1440,40 L1440,0 L0,0 Z"/></svg>
+  <div class="cta-band__deco" aria-hidden="true">
+    <svg class="bubble b3"><use href="#i-bubble"/></svg>
+    <span class="star s5"></span><span class="star s6"></span>
+  </div>
+  <div class="container cta-band__inner reveal">
+    <h2>¿Tienes dudas sobre el desarrollo de tu peque?</h2>
+    <p>Escríbenos y conversemos. Estamos para orientarte.</p>
+    <a href={wa(WA_MSG.general)} class="cta-band__phone" target="_blank" rel="noopener" data-track="franja">
+      <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> {CONTACT.phoneDisplay}
+    </a>
+  </div>
+  <svg class="wave wave--bottom" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,50 C260,100 520,10 760,40 C1000,70 1220,100 1440,50 L1440,100 L0,100 Z"/></svg>
+</section>

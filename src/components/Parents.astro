@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import { CONTACT, TIPS } from "../data/site";
+import { img } from "../data/images";
+---
+<section class="section parents" id="padres">
+  <svg class="wave wave--top" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,30 C300,90 600,0 900,40 C1140,72 1300,70 1440,40 L1440,0 L0,0 Z"/></svg>
+  <div class="container">
+    <header class="section__head reveal">
+      <span class="eyebrow">Rincón para padres</span>
+      <h2>Consejos para acompañar a tu peque</h2>
+      <p>Ideas sencillas para apoyar el desarrollo de tu hijo en casa.</p>
+    </header>
+    <div class="parents__grid">
+      {TIPS.map((t) => (
+        <article class="post reveal">
+          <div class="post__img">
+            <Image src={img(t.image)} alt={t.alt} widths={[400, 600, 800]} sizes="(max-width: 640px) 92vw, (max-width: 960px) 46vw, 380px" />
+          </div>
+          <div class="post__body">
+            <span class={`tag tag--${t.color}`}>{t.tag}</span>
+            <h3>{t.title}</h3>
+            <p>{t.text}</p>
+          </div>
+        </article>
+      ))}
+      <article class="post post--event reveal">
+        <div class="post__body">
+          <span class="tag tag--white">Comunidad ComuniK-T</span>
+          <h3>Más tips cada semana en nuestras redes</h3>
+          <p>Somos más de 22 mil seguidores entre Instagram y Facebook. Ahí compartimos consejos para padres y novedades del centro.</p>
+          <div class="post__events">
+            <span>Lenguaje</span><span>Aprendizaje</span><span>Psicología</span><span>Tips</span><span>Testimonios</span>
+          </div>
+          <a href={CONTACT.instagram} class="btn btn--white" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-ig"/></svg> Síguenos en Instagram</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

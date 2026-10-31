@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { wa, WA_MSG } from "../data/site";
+---
+<Layout title="Página no encontrada | ComuniK-T" noindex>
+  <main class="notfound" id="contenido">
+    <svg class="notfound__bubble" aria-hidden="true"><use href="#i-bubble"/></svg>
+    <p class="notfound__code">404</p>
+    <h1>¡Ups! Esta página se nos escondió</h1>
+    <p>Puede que el enlace haya cambiado. Vuelve al inicio o escríbenos y te ayudamos.</p>
+    <div class="notfound__ctas">
+      <a href="/" class="btn btn--white btn--lg">Volver al inicio</a>
+      <a href={wa(WA_MSG.general)} class="btn btn--primary btn--lg" target="_blank" rel="noopener" data-track="404">
+        <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Escríbenos
+      </a>
+    </div>
+  </main>
+</Layout>
